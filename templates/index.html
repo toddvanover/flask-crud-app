@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Project Tracker</title>
+  <style>
+    body { font-family: sans-serif; max-width: 650px; margin: 40px auto; padding: 0 20px; background: #111; color: #fff; }
+    h1 { color: #e50914; }
+    form { display: flex; gap: 10px; margin-bottom: 25px; }
+    input { padding: 10px; border-radius: 4px; border: 1px solid #333; background: #222; color: #fff; flex: 1; }
+    button { background: #e50914; color: #fff; border: none; padding: 10px 16px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+    ul { list-style: none; padding: 0; }
+    li { background: #1e1e1e; border: 1px solid #333; padding: 12px 16px; border-radius: 6px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+    a.del { color: #ff5555; text-decoration: none; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <h1>Project Tracker</h1>
+  <form action="/add" method="POST">
+    <input type="text" name="title" placeholder="Item title..." required>
+    <input type="text" name="description" placeholder="Short description...">
+    <button type="submit">Add Item</button>
+  </form>
+  <ul>
+    {% for item in items %}
+      <li>
+        <div>
+          <strong>{{ item.title }}</strong>
+          {% if item.description %}<p style="margin: 4px 0 0; color: #aaa; font-size: 0.9rem;">{{ item.description }}</p>{% endif %}
+        </div>
+        <a class="del" href="/delete/{{ item.id }}">Delete</a>
+      </li>
+    {% else %}
+      <p style="color: #666;">No items yet.</p>
+    {% endfor %}
+  </ul>
+</body>
+</html>
